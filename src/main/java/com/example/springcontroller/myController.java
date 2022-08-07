@@ -1,0 +1,48 @@
+package com.example.springcontroller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.springmodels.Course;
+import com.example.springservices.CourseService;
+
+//start from 01:04:00
+@RestController
+//Represenational State Transfer -- To create and send JSON Data
+
+public class myController {
+	
+	@Autowired
+	CourseService myCourses;
+	@GetMapping("/home")
+	public String home() {
+		return "This is home page";
+	}
+	
+	@GetMapping("/courses")
+	public List<Course> getCourses() {
+		return myCourses.getCourses();
+	}
+	
+	@GetMapping("/course/{courseId}")
+	public Course getCourse(@PathVariable String courseId) {
+		return myCourses.getCourse(Long.parseLong(courseId));
+	}
+	
+	@PostMapping("/courses")
+	public Course addCourse(@RequestBody Course crse) {
+		return myCourses.addCourse(crse);	
+	}
+	@PutMapping("/course")
+	public Course updateCourse(@RequestBody Course crse) {
+		return myCourses.updateCourse(crse);
+	}
+	
+}
