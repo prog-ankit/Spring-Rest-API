@@ -1,8 +1,20 @@
 package com.example.springmodels;
 
+//import javax.persistence.Column;
+import javax.persistence.Entity;
+//import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+//import javax.persistence.Table;
+
+@Entity
+//@Table(name="TBL_EMPLOYEES") -- For manual table name in database
 public class Course {
 
+	@Id
+//	@GeneratedValue -- for Auto Generated value auto increment
 	private long id;
+	
+//	@Column(name = "courseName") -- for the manual column name
 	private String courseName;
 	private String courseDesc;
 

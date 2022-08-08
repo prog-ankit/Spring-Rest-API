@@ -1,72 +1,48 @@
 package com.example.springservices;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.springdao.courseDao;
 import com.example.springmodels.Course;
 
 @Service
 public class springserviceImpl implements CourseService {
 
-	List<Course> list;
+	@Autowired
+	private courseDao coursedao;
+
 	public springserviceImpl() {
-		list = new ArrayList<Course>();
-		list.add(new Course(101,"Java","Java is Fabulous"));
-		list.add(new Course(102,"C++","C++ is Fabulous"));
-		
+
 	}
 
 	@Override
 	public List<Course> getCourses() {
-		return list;
+		return coursedao.findAll();
 	}
 
 	@Override
 	public Course getCourse(long courseId) {
-		Course c = null;
-		for(Course course : list) {
-			if(course.getId() == courseId)
-			{
-				c=course;
-				break;
-			}
-		}
-		return c;
-		
-			
+		return coursedao.getReferenceById(courseId);
 	}
 
 	@Override
 	public Course addCourse(Course crse) {
-		list.add(crse);
-		return crse;
+		System.out.println(crse.toString());
+		return coursedao.save(crse);
 	}
 
 	@Override
 	public Course updateCourse(Course crse) {
-//		list.forEach(element ->{
-//			if(element.getId() == crse.getId()) {
-//				element.setCourseName(crse.getCourseName());
-//				element.setCourseDesc(crse.getCourseDesc());
-//			}
-//		});
-		
-		for(Course cr : list) {
-			if(cr.getId() == crse.getId()) {
-//				cr.setId(crse.getId());
-				cr.setCourseName(crse.getCourseName());
-				cr.setCourseDesc(crse.getCourseDesc());
-			}
-		}
-		return crse;
+		return coursedao.save(crse);
 	}
 
 	@Override
 	public void deleteCourse(long courseId) {
-		this.list.stream().filter(e->e.getId()!=courseId).collect(Collectors.toList());
+		Course cr = coursedao.getReferenceById(courseId);
+		coursedao.delete(cr);
 	}
 
 }

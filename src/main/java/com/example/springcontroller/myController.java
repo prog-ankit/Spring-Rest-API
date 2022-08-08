@@ -17,7 +17,7 @@ import com.example.springmodels.Course;
 import com.example.springservices.CourseService;
 
 //First Video Done
-//Second Video Update -- 14:00
+//Second Video Update -- Completed
 @RestController
 //Represenational State Transfer -- To create and send JSON Data
 
@@ -25,6 +25,7 @@ public class myController {
 	
 	@Autowired
 	CourseService myCourses;
+	
 	@GetMapping("/home")
 	public String home() {
 		return "This is home page";
