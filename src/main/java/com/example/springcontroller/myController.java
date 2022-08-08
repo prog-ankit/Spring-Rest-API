@@ -3,6 +3,9 @@ package com.example.springcontroller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.springmodels.Course;
 import com.example.springservices.CourseService;
 
-//start from 01:04:00
+//First Video Done
+//Second Video Update -- 14:00
 @RestController
 //Represenational State Transfer -- To create and send JSON Data
 
@@ -44,5 +48,17 @@ public class myController {
 	public Course updateCourse(@RequestBody Course crse) {
 		return myCourses.updateCourse(crse);
 	}
+	@DeleteMapping("/course/{courseId}")
+	public ResponseEntity<HttpStatus> deleteCourse(@PathVariable String courseId) {
+		try {
+			myCourses.deleteCourse(Long.parseLong(courseId));
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
+		catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	
+	}
+	
 	
 }
